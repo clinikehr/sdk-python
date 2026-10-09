@@ -1,0 +1,10 @@
+from enum import StrEnum
+
+
+class PatientGenderType3Type1(StrEnum):
+    FEMALE = "female"
+    MALE = "male"
+    OTHER = "other"
+
+    def __str__(self) -> str:
+        return str(self.value)

@@ -1,0 +1,54 @@
+{
+  "_generated_by": "the API's own webhook signer (signWebhook), run under Deno",
+  "vectors": [
+    {
+      "name": "single_secret_simple_body",
+      "secrets": [
+        "whsec_a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
+      ],
+      "body": "{\"type\":\"inventory.item.stock_changed\",\"clinic_id\":\"45715198-88e4-498c-8271-57e652c60246\",\"data\":{\"id\":\"9f1c9c1a-6b1b-4b7a-9b1a-6b1b4b7a9b1a\"},\"created_at\":\"2026-09-29T00:00:00Z\"}",
+      "headers": {
+        "webhook-id": "msg_2yNsW0uWKm3W2mCgFRAiYtl6PGQ",
+        "webhook-timestamp": "1614265330",
+        "webhook-signature": "v1,Am6Z02R5se5Svon9R/d7FY/5CYxe9gk8D/584PuHLOs="
+      }
+    },
+    {
+      "name": "single_secret_empty_body_object",
+      "secrets": [
+        "whsec_a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1"
+      ],
+      "body": "{}",
+      "headers": {
+        "webhook-id": "msg_empty_body_case",
+        "webhook-timestamp": "1727481600",
+        "webhook-signature": "v1,Qkp1STzhgC5BEidilXn6qpfDd7iCyyzIwUWA+KbaDmA="
+      }
+    },
+    {
+      "name": "two_secrets_rotation_overlap",
+      "secrets": [
+        "whsec_a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "whsec_b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2"
+      ],
+      "body": "{\"type\":\"connection.revoked\",\"clinic_id\":\"f7a14750-3710-47eb-bac7-0eb7b26630e7\",\"data\":{\"id\":\"c0ffee00-0000-4000-8000-000000000001\"},\"created_at\":\"2026-09-29T00:00:00Z\"}",
+      "headers": {
+        "webhook-id": "msg_rotation_overlap_case",
+        "webhook-timestamp": "1727481600",
+        "webhook-signature": "v1,a8DKe9KxpvtL4ckUtFGTOSEKy2l6tUlAXeIm9IWGIuU= v1,zvJ49k4duJVDtYG3ooVt/0JsK40WjQQgZTBTZUC8xno="
+      }
+    },
+    {
+      "name": "non_hex_literal_secret",
+      "secrets": [
+        "whsec_not-hex-material-literal-utf8"
+      ],
+      "body": "{\"type\":\"listing.revoked\",\"clinic_id\":\"45715198-88e4-498c-8271-57e652c60246\",\"data\":{\"id\":\"deadbeef-0000-4000-8000-000000000002\"},\"created_at\":\"2026-09-29T00:00:00Z\"}",
+      "headers": {
+        "webhook-id": "msg_literal_secret_case",
+        "webhook-timestamp": "1727481600",
+        "webhook-signature": "v1,QTjRtnZcKq3dpZE37AgDoqTliNmcSE4q1JHdb85HHkM="
+      }
+    }
+  ]
+}
