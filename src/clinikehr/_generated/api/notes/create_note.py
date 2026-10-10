@@ -103,8 +103,10 @@ def sync_detailed(
     """Create a DRAFT note. Always status=draft — this route can never sign, lock, finalize or co-sign.
 
      Unknown content keys are refused (unknown_field) naming both the offending keys and the full valid
-    list for whichever template note_type/custom_template_id resolves to. The answer carries the new
-    note's details with `content: null`; read the note with `GET …/notes/{note_id}` to see its content.
+    list for whichever template note_type/custom_template_id resolves to. The answer is the full note,
+    the same object `GET …/notes/{note_id}` returns: its details plus `content` and `citations`. A
+    citation's `url`, when given, must be an `http://` or `https://` address; anything else is refused
+    with a 400 naming `/citations/N/url`.
 
     Args:
         clinic_id (UUID):
@@ -142,8 +144,10 @@ def sync(
     """Create a DRAFT note. Always status=draft — this route can never sign, lock, finalize or co-sign.
 
      Unknown content keys are refused (unknown_field) naming both the offending keys and the full valid
-    list for whichever template note_type/custom_template_id resolves to. The answer carries the new
-    note's details with `content: null`; read the note with `GET …/notes/{note_id}` to see its content.
+    list for whichever template note_type/custom_template_id resolves to. The answer is the full note,
+    the same object `GET …/notes/{note_id}` returns: its details plus `content` and `citations`. A
+    citation's `url`, when given, must be an `http://` or `https://` address; anything else is refused
+    with a 400 naming `/citations/N/url`.
 
     Args:
         clinic_id (UUID):
@@ -176,8 +180,10 @@ async def asyncio_detailed(
     """Create a DRAFT note. Always status=draft — this route can never sign, lock, finalize or co-sign.
 
      Unknown content keys are refused (unknown_field) naming both the offending keys and the full valid
-    list for whichever template note_type/custom_template_id resolves to. The answer carries the new
-    note's details with `content: null`; read the note with `GET …/notes/{note_id}` to see its content.
+    list for whichever template note_type/custom_template_id resolves to. The answer is the full note,
+    the same object `GET …/notes/{note_id}` returns: its details plus `content` and `citations`. A
+    citation's `url`, when given, must be an `http://` or `https://` address; anything else is refused
+    with a 400 naming `/citations/N/url`.
 
     Args:
         clinic_id (UUID):
@@ -213,8 +219,10 @@ async def asyncio(
     """Create a DRAFT note. Always status=draft — this route can never sign, lock, finalize or co-sign.
 
      Unknown content keys are refused (unknown_field) naming both the offending keys and the full valid
-    list for whichever template note_type/custom_template_id resolves to. The answer carries the new
-    note's details with `content: null`; read the note with `GET …/notes/{note_id}` to see its content.
+    list for whichever template note_type/custom_template_id resolves to. The answer is the full note,
+    the same object `GET …/notes/{note_id}` returns: its details plus `content` and `citations`. A
+    citation's `url`, when given, must be an `http://` or `https://` address; anything else is refused
+    with a 400 naming `/citations/N/url`.
 
     Args:
         clinic_id (UUID):

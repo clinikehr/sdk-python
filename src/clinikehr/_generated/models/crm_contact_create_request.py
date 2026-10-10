@@ -9,6 +9,7 @@ from attrs import define as _attrs_define
 from ..models.crm_contact_create_request_lifecycle_stage import CrmContactCreateRequestLifecycleStage
 from ..models.crm_contact_create_request_priority import CrmContactCreateRequestPriority
 from ..models.crm_contact_create_request_record_type import CrmContactCreateRequestRecordType
+from ..models.crm_contact_create_request_source import CrmContactCreateRequestSource
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -32,7 +33,7 @@ class CrmContactCreateRequest:
         lifecycle_stage (CrmContactCreateRequestLifecycleStage | Unset):
         pipeline_id (None | Unset | UUID):
         stage_id (None | Unset | UUID):
-        source (str | Unset):
+        source (CrmContactCreateRequestSource | Unset):
         referral_source_id (None | Unset | UUID):
         interest (None | str | Unset):
         desired_service_id (None | Unset | UUID):
@@ -55,7 +56,7 @@ class CrmContactCreateRequest:
     lifecycle_stage: CrmContactCreateRequestLifecycleStage | Unset = UNSET
     pipeline_id: None | Unset | UUID = UNSET
     stage_id: None | Unset | UUID = UNSET
-    source: str | Unset = UNSET
+    source: CrmContactCreateRequestSource | Unset = UNSET
     referral_source_id: None | Unset | UUID = UNSET
     interest: None | str | Unset = UNSET
     desired_service_id: None | Unset | UUID = UNSET
@@ -130,7 +131,9 @@ class CrmContactCreateRequest:
         else:
             stage_id = self.stage_id
 
-        source = self.source
+        source: str | Unset = UNSET
+        if not isinstance(self.source, Unset):
+            source = self.source.value
 
         referral_source_id: None | str | Unset
         if isinstance(self.referral_source_id, Unset):
@@ -234,9 +237,7 @@ class CrmContactCreateRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.crm_contact_create_request_custom_fields import (
-            CrmContactCreateRequestCustomFields,  # noqa: PLC0415
-        )
+        from ..models.crm_contact_create_request_custom_fields import CrmContactCreateRequestCustomFields  # noqa: PLC0415
 
         d = dict(src_dict)
 
@@ -350,7 +351,12 @@ class CrmContactCreateRequest:
 
         stage_id = _parse_stage_id(d.pop("stage_id", UNSET))
 
-        source = d.pop("source", UNSET)
+        _source = d.pop("source", UNSET)
+        source: CrmContactCreateRequestSource | Unset
+        if isinstance(_source, Unset):
+            source = UNSET
+        else:
+            source = CrmContactCreateRequestSource(_source)
 
         def _parse_referral_source_id(data: object) -> None | Unset | UUID:
             if data is None:

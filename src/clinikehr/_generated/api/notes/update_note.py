@@ -102,8 +102,8 @@ def sync_detailed(
     """Update a draft this key created, if no clinician has touched it since.
 
      Refused note_not_editable if the note is signed/locked/finalized or a clinician saved it since this
-    key's own last write. The answer carries the note's details with `content: null`; read the note with
-    `GET …/notes/{note_id}` to see its content.
+    key's own last write. The answer is the full note, the same object `GET …/notes/{note_id}` returns:
+    its details plus the new `content` and the note's `citations`.
 
     Args:
         clinic_id (UUID):
@@ -141,8 +141,8 @@ def sync(
     """Update a draft this key created, if no clinician has touched it since.
 
      Refused note_not_editable if the note is signed/locked/finalized or a clinician saved it since this
-    key's own last write. The answer carries the note's details with `content: null`; read the note with
-    `GET …/notes/{note_id}` to see its content.
+    key's own last write. The answer is the full note, the same object `GET …/notes/{note_id}` returns:
+    its details plus the new `content` and the note's `citations`.
 
     Args:
         clinic_id (UUID):
@@ -175,8 +175,8 @@ async def asyncio_detailed(
     """Update a draft this key created, if no clinician has touched it since.
 
      Refused note_not_editable if the note is signed/locked/finalized or a clinician saved it since this
-    key's own last write. The answer carries the note's details with `content: null`; read the note with
-    `GET …/notes/{note_id}` to see its content.
+    key's own last write. The answer is the full note, the same object `GET …/notes/{note_id}` returns:
+    its details plus the new `content` and the note's `citations`.
 
     Args:
         clinic_id (UUID):
@@ -212,8 +212,8 @@ async def asyncio(
     """Update a draft this key created, if no clinician has touched it since.
 
      Refused note_not_editable if the note is signed/locked/finalized or a clinician saved it since this
-    key's own last write. The answer carries the note's details with `content: null`; read the note with
-    `GET …/notes/{note_id}` to see its content.
+    key's own last write. The answer is the full note, the same object `GET …/notes/{note_id}` returns:
+    its details plus the new `content` and the note's `citations`.
 
     Args:
         clinic_id (UUID):

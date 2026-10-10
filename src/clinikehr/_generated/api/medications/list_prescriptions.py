@@ -124,11 +124,12 @@ def sync_detailed(
 
      `patient_id` is required. Prescriptions are read only and minimal: the drug, the dose, the
     frequency, the status and when it was written, with `source` telling a prescription sent through the
-    clinic's e-prescribing connection (`eprescribe`) from one written in the clinic (`clinic`). There is
-    no route to create or change a prescription. `status` filters by the prescription's status. A
-    restricted patient's prescriptions, and any the clinic has marked sensitive, are never returned.
-    With `Accept: application/fhir+json` the answer is a searchset Bundle of FHIR R4 MedicationRequest
-    resources.
+    clinic's e-prescribing connection (`eprescribe`) from one written in the clinic (`clinic`). A
+    prescription that exists only in the clinic's e-prescribing service is listed for the clinic's own
+    keys only, never for an organization's key. There is no route to create or change a prescription.
+    `status` filters by the prescription's status. A restricted patient's prescriptions, and any the
+    clinic has marked sensitive, are never returned. With `Accept: application/fhir+json` the answer is
+    a searchset Bundle of FHIR R4 MedicationRequest resources.
 
     Args:
         clinic_id (UUID):
@@ -176,11 +177,12 @@ def sync(
 
      `patient_id` is required. Prescriptions are read only and minimal: the drug, the dose, the
     frequency, the status and when it was written, with `source` telling a prescription sent through the
-    clinic's e-prescribing connection (`eprescribe`) from one written in the clinic (`clinic`). There is
-    no route to create or change a prescription. `status` filters by the prescription's status. A
-    restricted patient's prescriptions, and any the clinic has marked sensitive, are never returned.
-    With `Accept: application/fhir+json` the answer is a searchset Bundle of FHIR R4 MedicationRequest
-    resources.
+    clinic's e-prescribing connection (`eprescribe`) from one written in the clinic (`clinic`). A
+    prescription that exists only in the clinic's e-prescribing service is listed for the clinic's own
+    keys only, never for an organization's key. There is no route to create or change a prescription.
+    `status` filters by the prescription's status. A restricted patient's prescriptions, and any the
+    clinic has marked sensitive, are never returned. With `Accept: application/fhir+json` the answer is
+    a searchset Bundle of FHIR R4 MedicationRequest resources.
 
     Args:
         clinic_id (UUID):
@@ -223,11 +225,12 @@ async def asyncio_detailed(
 
      `patient_id` is required. Prescriptions are read only and minimal: the drug, the dose, the
     frequency, the status and when it was written, with `source` telling a prescription sent through the
-    clinic's e-prescribing connection (`eprescribe`) from one written in the clinic (`clinic`). There is
-    no route to create or change a prescription. `status` filters by the prescription's status. A
-    restricted patient's prescriptions, and any the clinic has marked sensitive, are never returned.
-    With `Accept: application/fhir+json` the answer is a searchset Bundle of FHIR R4 MedicationRequest
-    resources.
+    clinic's e-prescribing connection (`eprescribe`) from one written in the clinic (`clinic`). A
+    prescription that exists only in the clinic's e-prescribing service is listed for the clinic's own
+    keys only, never for an organization's key. There is no route to create or change a prescription.
+    `status` filters by the prescription's status. A restricted patient's prescriptions, and any the
+    clinic has marked sensitive, are never returned. With `Accept: application/fhir+json` the answer is
+    a searchset Bundle of FHIR R4 MedicationRequest resources.
 
     Args:
         clinic_id (UUID):
@@ -273,11 +276,12 @@ async def asyncio(
 
      `patient_id` is required. Prescriptions are read only and minimal: the drug, the dose, the
     frequency, the status and when it was written, with `source` telling a prescription sent through the
-    clinic's e-prescribing connection (`eprescribe`) from one written in the clinic (`clinic`). There is
-    no route to create or change a prescription. `status` filters by the prescription's status. A
-    restricted patient's prescriptions, and any the clinic has marked sensitive, are never returned.
-    With `Accept: application/fhir+json` the answer is a searchset Bundle of FHIR R4 MedicationRequest
-    resources.
+    clinic's e-prescribing connection (`eprescribe`) from one written in the clinic (`clinic`). A
+    prescription that exists only in the clinic's e-prescribing service is listed for the clinic's own
+    keys only, never for an organization's key. There is no route to create or change a prescription.
+    `status` filters by the prescription's status. A restricted patient's prescriptions, and any the
+    clinic has marked sensitive, are never returned. With `Accept: application/fhir+json` the answer is
+    a searchset Bundle of FHIR R4 MedicationRequest resources.
 
     Args:
         clinic_id (UUID):

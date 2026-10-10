@@ -9,6 +9,7 @@ from attrs import define as _attrs_define
 from ..models.crm_contact_update_request_lifecycle_stage import CrmContactUpdateRequestLifecycleStage
 from ..models.crm_contact_update_request_priority import CrmContactUpdateRequestPriority
 from ..models.crm_contact_update_request_record_type import CrmContactUpdateRequestRecordType
+from ..models.crm_contact_update_request_source import CrmContactUpdateRequestSource
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -32,7 +33,7 @@ class CrmContactUpdateRequest:
         lifecycle_stage (CrmContactUpdateRequestLifecycleStage | Unset):
         pipeline_id (None | Unset | UUID):
         stage_id (None | Unset | UUID):
-        source (str | Unset):
+        source (CrmContactUpdateRequestSource | Unset):
         owner_staff_id (None | Unset | UUID):
         referral_source_id (None | Unset | UUID):
         interest (None | str | Unset):
@@ -55,7 +56,7 @@ class CrmContactUpdateRequest:
     lifecycle_stage: CrmContactUpdateRequestLifecycleStage | Unset = UNSET
     pipeline_id: None | Unset | UUID = UNSET
     stage_id: None | Unset | UUID = UNSET
-    source: str | Unset = UNSET
+    source: CrmContactUpdateRequestSource | Unset = UNSET
     owner_staff_id: None | Unset | UUID = UNSET
     referral_source_id: None | Unset | UUID = UNSET
     interest: None | str | Unset = UNSET
@@ -123,7 +124,9 @@ class CrmContactUpdateRequest:
         else:
             stage_id = self.stage_id
 
-        source = self.source
+        source: str | Unset = UNSET
+        if not isinstance(self.source, Unset):
+            source = self.source.value
 
         owner_staff_id: None | str | Unset
         if isinstance(self.owner_staff_id, Unset):
@@ -235,9 +238,7 @@ class CrmContactUpdateRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.crm_contact_update_request_custom_fields import (
-            CrmContactUpdateRequestCustomFields,  # noqa: PLC0415
-        )
+        from ..models.crm_contact_update_request_custom_fields import CrmContactUpdateRequestCustomFields  # noqa: PLC0415
 
         d = dict(src_dict)
         _record_type = d.pop("record_type", UNSET)
@@ -333,7 +334,12 @@ class CrmContactUpdateRequest:
 
         stage_id = _parse_stage_id(d.pop("stage_id", UNSET))
 
-        source = d.pop("source", UNSET)
+        _source = d.pop("source", UNSET)
+        source: CrmContactUpdateRequestSource | Unset
+        if isinstance(_source, Unset):
+            source = UNSET
+        else:
+            source = CrmContactUpdateRequestSource(_source)
 
         def _parse_owner_staff_id(data: object) -> None | Unset | UUID:
             if data is None:

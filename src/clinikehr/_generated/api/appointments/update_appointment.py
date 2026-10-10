@@ -108,8 +108,9 @@ def sync_detailed(
      A new `start_at` or `clinician_id` is checked exactly as a new booking is (the slot must be free and
     the clinician bookable). Other fields are plain edits; an absent field is unchanged. `status` may
     only move to `confirmed` here; use the cancel route to cancel. A cancelled, completed or no-show
-    appointment cannot be changed. With a test key, rescheduling is not available: cancel the sandbox
-    appointment and book a new one.
+    appointment cannot be changed. With a test key the same edits work on the sandbox's fictional
+    appointments, including a new time; a sandbox time is in UTC, and a slot that overlaps that
+    clinician's other sandbox appointments is refused with `slot_taken`.
 
     Who is told. For a live (non-test) appointment that is still booked and in the future, changing
     `start_at`, `clinician_id` or `venue_type` emails the patient and any participants: a new time is a
@@ -164,8 +165,9 @@ def sync(
      A new `start_at` or `clinician_id` is checked exactly as a new booking is (the slot must be free and
     the clinician bookable). Other fields are plain edits; an absent field is unchanged. `status` may
     only move to `confirmed` here; use the cancel route to cancel. A cancelled, completed or no-show
-    appointment cannot be changed. With a test key, rescheduling is not available: cancel the sandbox
-    appointment and book a new one.
+    appointment cannot be changed. With a test key the same edits work on the sandbox's fictional
+    appointments, including a new time; a sandbox time is in UTC, and a slot that overlaps that
+    clinician's other sandbox appointments is refused with `slot_taken`.
 
     Who is told. For a live (non-test) appointment that is still booked and in the future, changing
     `start_at`, `clinician_id` or `venue_type` emails the patient and any participants: a new time is a
@@ -215,8 +217,9 @@ async def asyncio_detailed(
      A new `start_at` or `clinician_id` is checked exactly as a new booking is (the slot must be free and
     the clinician bookable). Other fields are plain edits; an absent field is unchanged. `status` may
     only move to `confirmed` here; use the cancel route to cancel. A cancelled, completed or no-show
-    appointment cannot be changed. With a test key, rescheduling is not available: cancel the sandbox
-    appointment and book a new one.
+    appointment cannot be changed. With a test key the same edits work on the sandbox's fictional
+    appointments, including a new time; a sandbox time is in UTC, and a slot that overlaps that
+    clinician's other sandbox appointments is refused with `slot_taken`.
 
     Who is told. For a live (non-test) appointment that is still booked and in the future, changing
     `start_at`, `clinician_id` or `venue_type` emails the patient and any participants: a new time is a
@@ -269,8 +272,9 @@ async def asyncio(
      A new `start_at` or `clinician_id` is checked exactly as a new booking is (the slot must be free and
     the clinician bookable). Other fields are plain edits; an absent field is unchanged. `status` may
     only move to `confirmed` here; use the cancel route to cancel. A cancelled, completed or no-show
-    appointment cannot be changed. With a test key, rescheduling is not available: cancel the sandbox
-    appointment and book a new one.
+    appointment cannot be changed. With a test key the same edits work on the sandbox's fictional
+    appointments, including a new time; a sandbox time is in UTC, and a slot that overlaps that
+    clinician's other sandbox appointments is refused with `slot_taken`.
 
     Who is told. For a live (non-test) appointment that is still booked and in the future, changing
     `start_at`, `clinician_id` or `venue_type` emails the patient and any participants: a new time is a

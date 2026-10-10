@@ -119,3 +119,14 @@ def test_async_retry_transport_retries_5xx_on_get():
         assert len(stub.calls) == 2
 
     asyncio.run(run())
+
+
+def test_ensure_idempotency_key_on_patch_but_not_get_or_unkeyed_delete():
+    # 0.1.0 keyed POST only, so a PATCH route that requires the header answered 400.
+    patch = httpx.Request("PATCH", "https://example.test/v1/x", json={})
+    ensure_idempotency_key(patch)
+    assert len(patch.headers["Idempotency-Key"]) == 36
+    for method in ("GET", "DELETE"):
+        r = httpx.Request(method, "https://example.test/v1/x")
+        ensure_idempotency_key(r)
+        assert "idempotency-key" not in {k.lower() for k in r.headers}

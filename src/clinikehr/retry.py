@@ -5,10 +5,10 @@ only in outline so this file stands alone):
 
   - a 429 (``rate_limited``) is ALWAYS retryable.
   - a 5xx or a transport failure is retryable only for a GET/HEAD, or a
-    request that carried an ``Idempotency-Key`` (POST only, in this API).
-  - PATCH is NEVER retried on a 5xx/transport failure — it has no
-    ``Idempotency-Key`` in this API and is not inherently idempotent (a
-    stale ``If-Match`` is a different, correct 412).
+    request that carried an ``Idempotency-Key`` (POST, or a DELETE the caller keyed).
+  - PATCH is NEVER retried on a 5xx/transport failure, even though it
+    carries an ``Idempotency-Key`` (some PATCH routes require one) — a
+    stale ``If-Match`` is a different, correct 412, not a transient failure.
   - any other 4xx is never retried.
 """
 

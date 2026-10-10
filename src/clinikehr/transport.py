@@ -25,8 +25,8 @@ from .retry import RetryPolicyOptions, decide_retry
 
 
 def ensure_idempotency_key(request: httpx.Request) -> None:
-    """Request event hook: generates an ``Idempotency-Key`` for a POST with none, in place. A caller who set their own is never overridden."""
-    if request.method.upper() == "POST" and "idempotency-key" not in {k.lower() for k in request.headers}:
+    """Request event hook: generates an ``Idempotency-Key`` for a POST or PATCH with none, in place (several PATCH routes require one). A caller who set their own is never overridden; DELETE carries one only when the caller sets it; PATCH is still never retried."""
+    if request.method.upper() in ("POST", "PATCH") and "idempotency-key" not in {k.lower() for k in request.headers}:
         request.headers["Idempotency-Key"] = str(uuid.uuid4())
 
 

@@ -97,8 +97,8 @@ def sync_detailed(
 ) -> Response[ListEventsResponse200 | Problem]:
     """The clinic's own change feed — catch-up for a partner whose webhook endpoint was down.
 
-     Authorizes via the same scope-less /v1/me shape; filters to event types whose required_scope the
-    key's CURRENT scopes cover.
+     Needs no scope of its own: any valid key that can reach the clinic may read the feed. The feed is
+    filtered to event types whose required_scope the key's CURRENT scopes cover.
 
     Args:
         clinic_id (UUID):
@@ -135,8 +135,8 @@ def sync(
 ) -> ListEventsResponse200 | Problem | None:
     """The clinic's own change feed — catch-up for a partner whose webhook endpoint was down.
 
-     Authorizes via the same scope-less /v1/me shape; filters to event types whose required_scope the
-    key's CURRENT scopes cover.
+     Needs no scope of its own: any valid key that can reach the clinic may read the feed. The feed is
+    filtered to event types whose required_scope the key's CURRENT scopes cover.
 
     Args:
         clinic_id (UUID):
@@ -168,8 +168,8 @@ async def asyncio_detailed(
 ) -> Response[ListEventsResponse200 | Problem]:
     """The clinic's own change feed — catch-up for a partner whose webhook endpoint was down.
 
-     Authorizes via the same scope-less /v1/me shape; filters to event types whose required_scope the
-    key's CURRENT scopes cover.
+     Needs no scope of its own: any valid key that can reach the clinic may read the feed. The feed is
+    filtered to event types whose required_scope the key's CURRENT scopes cover.
 
     Args:
         clinic_id (UUID):
@@ -204,8 +204,8 @@ async def asyncio(
 ) -> ListEventsResponse200 | Problem | None:
     """The clinic's own change feed — catch-up for a partner whose webhook endpoint was down.
 
-     Authorizes via the same scope-less /v1/me shape; filters to event types whose required_scope the
-    key's CURRENT scopes cover.
+     Needs no scope of its own: any valid key that can reach the clinic may read the feed. The feed is
+    filtered to event types whose required_scope the key's CURRENT scopes cover.
 
     Args:
         clinic_id (UUID):

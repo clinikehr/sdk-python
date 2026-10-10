@@ -25,7 +25,9 @@ class Prescription:
     written. Nothing about dispensing, payment, scheduling, the prescriber or notes ever leaves the clinic. There is no
     way to create or change a prescription through the API. `source` is `eprescribe` for a prescription sent through the
     clinic's e-prescribing connection and `clinic` otherwise. `status: unknown` appears only on an `eprescribe`
-    prescription whose status the e-prescribing service reports in a form the platform does not recognise.
+    prescription whose status the e-prescribing service reports in a form the platform does not recognise. A
+    prescription that exists only in the clinic's e-prescribing service (it was not written in the clinic) is returned
+    to the clinic's own keys only; an organization's key never receives it, under the e-prescribing network's rules.
 
         Attributes:
             id (UUID):
