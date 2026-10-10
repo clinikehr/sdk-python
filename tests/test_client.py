@@ -97,3 +97,23 @@ class TestCreateClient:
         client = create_client("ehr_test_fakekey", base_url="https://example.test/v1")
         httpx_client = client.get_httpx_client()
         assert httpx_client.headers.get("accept") != "application/fhir+json"
+
+
+class TestTheUrlActuallyRequested:
+    """0.1.0 requested /v1/v1/... (the base repeated /v1) and every call was a 404. Assert the real URL."""
+
+    def _url(self, **kwargs) -> str:
+        client = create_client("ehr_test_fakekey", **kwargs)
+        return str(client.get_httpx_client().build_request("GET", "/v1/me").url)
+
+    def test_default_reaches_exactly_one_v1(self):
+        assert self._url() == "https://api.clinikehr.com/v1/me"
+
+    def test_a_base_ending_in_v1_is_not_doubled(self):
+        assert self._url(base_url="https://api.clinikehr.com/v1") == "https://api.clinikehr.com/v1/me"
+        assert self._url(base_url="https://api.clinikehr.com/v1/") == "https://api.clinikehr.com/v1/me"
+        assert self._url(base_url="https://proxy.example.com") == "https://proxy.example.com/v1/me"
+
+    def test_the_async_client_uses_the_same_base(self):
+        client = create_client("ehr_test_fakekey")
+        assert str(client.get_async_httpx_client().build_request("GET", "/v1/me").url) == "https://api.clinikehr.com/v1/me"

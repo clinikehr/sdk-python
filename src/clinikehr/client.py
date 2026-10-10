@@ -25,7 +25,15 @@ from .errors import ClinikEHRApiError
 from .retry import DEFAULT_RETRY_OPTIONS, RetryPolicyOptions
 from .transport import AsyncRetryTransport, RetryTransport, ensure_idempotency_key
 
-DEFAULT_BASE_URL = "https://api.clinikehr.com/v1"
+# The API ORIGIN. Every path in the API description already starts with ``/v1`` (``/v1/me``), so the base must not
+# repeat it: ``https://api.clinikehr.com/v1`` + ``/v1/me`` requested ``/v1/v1/me`` and every call answered 404.
+DEFAULT_BASE_URL = "https://api.clinikehr.com"
+
+
+def normalize_base_url(base_url: str) -> str:
+    """People are told the API lives at ``https://api.clinikehr.com/v1``; strip a trailing ``/v1`` instead of doubling it."""
+    trimmed = base_url.rstrip("/")
+    return trimmed[: -len("/v1")] if trimmed.endswith("/v1") else trimmed
 
 
 def create_client(
@@ -51,6 +59,7 @@ def create_client(
     """
     if not api_key:
         raise ValueError("create_client(api_key=...) — api_key is required.")
+    base_url = normalize_base_url(base_url)
 
     headers: dict[str, str] = {}
     if fhir:
