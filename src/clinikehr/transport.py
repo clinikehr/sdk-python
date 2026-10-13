@@ -30,6 +30,13 @@ def ensure_idempotency_key(request: httpx.Request) -> None:
         request.headers["Idempotency-Key"] = str(uuid.uuid4())
 
 
+async def ensure_idempotency_key_async(request: httpx.Request) -> None:
+    """The same hook for ``httpx.AsyncClient``, which AWAITS its event hooks. Registering the synchronous
+    :func:`ensure_idempotency_key` on the async client made every async call fail with
+    ``TypeError: object NoneType can't be used in 'await' expression`` before a request was sent (0.1.0)."""
+    ensure_idempotency_key(request)
+
+
 class RetryTransport(httpx.BaseTransport):
     """
     Wraps an inner ``httpx.BaseTransport`` and retries a request per

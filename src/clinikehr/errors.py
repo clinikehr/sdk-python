@@ -13,8 +13,8 @@ from typing import Any
 class ClinikEHRApiError(Exception):
     """
     Raised for every request that reached the server and got back a
-    ``problem+json`` error. Never raised for a network-level failure — see
-    :class:`TransportError` for that.
+    ``problem+json`` error. Never raised for a network-level failure: that surfaces as ``httpx``'s own
+    exception (``httpx.ConnectError``, ``httpx.TimeoutException``, ...) once the retry policy has run out.
     """
 
     def __init__(
@@ -62,7 +62,8 @@ class ClinikEHRApiError(Exception):
 
 
 class TransportError(Exception):
-    """A network-level failure (DNS, TCP, TLS, a timeout) — no response was ever parsed."""
+    """Reserved for a network-level failure (DNS, TCP, TLS, a timeout). Not raised by 0.1.x: today such a
+    failure surfaces as ``httpx``'s own exception, as the README says. Exported so code can name it once it is."""
 
     def __init__(self, message: str, *, cause: BaseException | None = None) -> None:
         super().__init__(message)

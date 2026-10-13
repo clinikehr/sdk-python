@@ -23,7 +23,7 @@ from ._generated.models.problem import Problem
 from ._generated.types import Response
 from .errors import ClinikEHRApiError
 from .retry import DEFAULT_RETRY_OPTIONS, RetryPolicyOptions
-from .transport import AsyncRetryTransport, RetryTransport, ensure_idempotency_key
+from .transport import AsyncRetryTransport, RetryTransport, ensure_idempotency_key, ensure_idempotency_key_async
 
 # The API ORIGIN. Every path in the API description already starts with ``/v1`` (``/v1/me``), so the base must not
 # repeat it: ``https://api.clinikehr.com/v1`` + ``/v1/me`` requested ``/v1/v1/me`` and every call answered 404.
@@ -89,7 +89,8 @@ def create_client(
         timeout=timeout,
         follow_redirects=False,
         transport=AsyncRetryTransport(httpx.AsyncHTTPTransport(), options=retry_options),
-        event_hooks={"request": [ensure_idempotency_key]},
+        # httpx awaits an AsyncClient's hooks: the async twin, never the sync function.
+        event_hooks={"request": [ensure_idempotency_key_async]},
     )
     client.set_async_httpx_client(async_httpx_client)
 

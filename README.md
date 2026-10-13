@@ -66,7 +66,7 @@ items = clinikehr.raise_for_response(async_response)
 from clinikehr import ClinikEHRApiError
 
 try:
-    clinikehr.raise_for_response(get_patient.sync_detailed(client=client, clinic_id=clinic_id, id=patient_id))
+    clinikehr.raise_for_response(get_patient.sync_detailed(client=client, clinic_id=clinic_id, patient_id=patient_id))
 except ClinikEHRApiError as err:
     print(err.status, err.code, err.request_id, err.detail)
     if err.code == "rate_limited":
@@ -78,10 +78,10 @@ A network-level failure (no response at all) raises `httpx`'s own exception
 retry policy has exhausted its attempts — the retry rule is identical to the
 TypeScript SDK's: a 429 always retries (honouring `Retry-After`); a 5xx or a
 transport failure retries only for a GET/HEAD, or a request that carried an
-`Idempotency-Key` (every POST gets one automatically, generated once and
-reused across retries — never regenerated); PATCH is never auto-retried on a
-5xx, because this API gives it no `Idempotency-Key` and a stale `If-Match` on
-retry is a different, correct `412`.
+`Idempotency-Key` (every POST and PATCH gets one automatically when you set
+none, generated once and reused across retries — never regenerated; several
+PATCH routes require one). PATCH is still never auto-retried on a 5xx: a
+stale `If-Match` on a retry is a different, correct `412`.
 
 ## Pagination
 
