@@ -102,7 +102,9 @@ class InsurancePreAuthorizationSubmit:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.insurance_diagnosis_input import InsuranceDiagnosisInput  # noqa: PLC0415
-        from ..models.insurance_pre_authorization_submit_item import InsurancePreAuthorizationSubmitItem  # noqa: PLC0415
+        from ..models.insurance_pre_authorization_submit_item import (
+            InsurancePreAuthorizationSubmitItem,  # noqa: PLC0415
+        )
 
         d = dict(src_dict)
         patient_id = UUID(d.pop("patient_id"))

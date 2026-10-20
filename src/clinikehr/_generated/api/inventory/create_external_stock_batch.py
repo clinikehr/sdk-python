@@ -96,7 +96,12 @@ def sync_detailed(
      Clinic-owned key only — an organization never pushes a clinic's own stock. batch_id doubles as the
     idempotency key (a replay of an already-processed batch returns the stored result, never
     reprocesses). Unmatched rows are counted, never guessed at, never written. A structurally invalid or
-    suspiciously-shrunk batch is rejected (409) — nothing is written to the mirror.
+    suspiciously-shrunk batch is rejected (409 `batch_rejected`, with the reason in `detail`) — nothing
+    is written to the mirror. A pharmacy that is not set to take a stock report from another system is
+    refused (409 `external_stock_mode_required`) before anything is read or written. Permission: a key
+    needs EITHER `inventory.external_stock:write` (the narrow permission for exactly this report; any
+    paid pharmacy plan, including the listing plan) OR `inventory.stock:write` (Team and above). A key
+    with only the narrow permission cannot read, adjust or receive stock.
 
     Args:
         clinic_id (UUID):
@@ -133,7 +138,12 @@ def sync(
      Clinic-owned key only — an organization never pushes a clinic's own stock. batch_id doubles as the
     idempotency key (a replay of an already-processed batch returns the stored result, never
     reprocesses). Unmatched rows are counted, never guessed at, never written. A structurally invalid or
-    suspiciously-shrunk batch is rejected (409) — nothing is written to the mirror.
+    suspiciously-shrunk batch is rejected (409 `batch_rejected`, with the reason in `detail`) — nothing
+    is written to the mirror. A pharmacy that is not set to take a stock report from another system is
+    refused (409 `external_stock_mode_required`) before anything is read or written. Permission: a key
+    needs EITHER `inventory.external_stock:write` (the narrow permission for exactly this report; any
+    paid pharmacy plan, including the listing plan) OR `inventory.stock:write` (Team and above). A key
+    with only the narrow permission cannot read, adjust or receive stock.
 
     Args:
         clinic_id (UUID):
@@ -165,7 +175,12 @@ async def asyncio_detailed(
      Clinic-owned key only — an organization never pushes a clinic's own stock. batch_id doubles as the
     idempotency key (a replay of an already-processed batch returns the stored result, never
     reprocesses). Unmatched rows are counted, never guessed at, never written. A structurally invalid or
-    suspiciously-shrunk batch is rejected (409) — nothing is written to the mirror.
+    suspiciously-shrunk batch is rejected (409 `batch_rejected`, with the reason in `detail`) — nothing
+    is written to the mirror. A pharmacy that is not set to take a stock report from another system is
+    refused (409 `external_stock_mode_required`) before anything is read or written. Permission: a key
+    needs EITHER `inventory.external_stock:write` (the narrow permission for exactly this report; any
+    paid pharmacy plan, including the listing plan) OR `inventory.stock:write` (Team and above). A key
+    with only the narrow permission cannot read, adjust or receive stock.
 
     Args:
         clinic_id (UUID):
@@ -200,7 +215,12 @@ async def asyncio(
      Clinic-owned key only — an organization never pushes a clinic's own stock. batch_id doubles as the
     idempotency key (a replay of an already-processed batch returns the stored result, never
     reprocesses). Unmatched rows are counted, never guessed at, never written. A structurally invalid or
-    suspiciously-shrunk batch is rejected (409) — nothing is written to the mirror.
+    suspiciously-shrunk batch is rejected (409 `batch_rejected`, with the reason in `detail`) — nothing
+    is written to the mirror. A pharmacy that is not set to take a stock report from another system is
+    refused (409 `external_stock_mode_required`) before anything is read or written. Permission: a key
+    needs EITHER `inventory.external_stock:write` (the narrow permission for exactly this report; any
+    paid pharmacy plan, including the listing plan) OR `inventory.stock:write` (Team and above). A key
+    with only the narrow permission cannot read, adjust or receive stock.
 
     Args:
         clinic_id (UUID):

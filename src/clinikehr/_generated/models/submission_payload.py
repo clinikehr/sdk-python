@@ -11,7 +11,10 @@ T = TypeVar("T", bound="SubmissionPayload")
 
 @_attrs_define
 class SubmissionPayload:
-    """What was submitted."""
+    """What was submitted. For `prescription_pickup_collection` this never carries the signature image — see
+    `has_signature`.
+
+    """
 
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 

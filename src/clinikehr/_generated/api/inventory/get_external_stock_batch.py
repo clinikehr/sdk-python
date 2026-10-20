@@ -81,6 +81,9 @@ def sync_detailed(
 ) -> Response[GetExternalStockBatchResponse200 | Problem]:
     """The stored batch's own status and counts — never the row-level data.
 
+     Needs `inventory.stock:read` OR the narrow `inventory.external_stock:write` (the key that sent the
+    report can read back its status).
+
     Args:
         clinic_id (UUID):
         batch_id (UUID):
@@ -113,6 +116,9 @@ def sync(
 ) -> GetExternalStockBatchResponse200 | Problem | None:
     """The stored batch's own status and counts — never the row-level data.
 
+     Needs `inventory.stock:read` OR the narrow `inventory.external_stock:write` (the key that sent the
+    report can read back its status).
+
     Args:
         clinic_id (UUID):
         batch_id (UUID):
@@ -139,6 +145,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
 ) -> Response[GetExternalStockBatchResponse200 | Problem]:
     """The stored batch's own status and counts — never the row-level data.
+
+     Needs `inventory.stock:read` OR the narrow `inventory.external_stock:write` (the key that sent the
+    report can read back its status).
 
     Args:
         clinic_id (UUID):
@@ -169,6 +178,9 @@ async def asyncio(
     client: AuthenticatedClient,
 ) -> GetExternalStockBatchResponse200 | Problem | None:
     """The stored batch's own status and counts — never the row-level data.
+
+     Needs `inventory.stock:read` OR the narrow `inventory.external_stock:write` (the key that sent the
+    report can read back its status).
 
     Args:
         clinic_id (UUID):

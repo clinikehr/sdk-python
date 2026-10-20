@@ -36,6 +36,10 @@ class ListingProfile:
         price_opt_in (bool | Unset): Separate opt-in for listing.prices:read. Off by default.
         profile_completed_at (datetime.datetime | None | Unset):
         updated_at (datetime.datetime | None | Unset):
+        store_url (None | str | Unset): The pharmacy's online store. Present ONLY when the store is safe to advertise:
+            its page is enabled, it can take payment, the pharmacy is not on the listing-only plan, and ClinikEHR (not
+            another system) holds its stock. Otherwise null. A pharmacy's own web address, when it has connected one, is
+            used instead of the hosted address.
     """
 
     clinic_id: UUID
@@ -52,6 +56,7 @@ class ListingProfile:
     price_opt_in: bool | Unset = UNSET
     profile_completed_at: datetime.datetime | None | Unset = UNSET
     updated_at: datetime.datetime | None | Unset = UNSET
+    store_url: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -142,6 +147,12 @@ class ListingProfile:
         else:
             updated_at = self.updated_at
 
+        store_url: None | str | Unset
+        if isinstance(self.store_url, Unset):
+            store_url = UNSET
+        else:
+            store_url = self.store_url
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -175,6 +186,8 @@ class ListingProfile:
             field_dict["profile_completed_at"] = profile_completed_at
         if updated_at is not UNSET:
             field_dict["updated_at"] = updated_at
+        if store_url is not UNSET:
+            field_dict["store_url"] = store_url
 
         return field_dict
 
@@ -328,6 +341,15 @@ class ListingProfile:
 
         updated_at = _parse_updated_at(d.pop("updated_at", UNSET))
 
+        def _parse_store_url(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        store_url = _parse_store_url(d.pop("store_url", UNSET))
+
         listing_profile = cls(
             clinic_id=clinic_id,
             display_name=display_name,
@@ -343,6 +365,7 @@ class ListingProfile:
             price_opt_in=price_opt_in,
             profile_completed_at=profile_completed_at,
             updated_at=updated_at,
+            store_url=store_url,
         )
 
         listing_profile.additional_properties = d

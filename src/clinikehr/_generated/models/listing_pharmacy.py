@@ -35,6 +35,10 @@ class ListingPharmacy:
         hours (ListingPharmacyHoursType0 | None | Unset):
         open_now (bool | None | Unset): Computed from the clinic's own business hours. Null when hours are absent or
             malformed for today — never a guess.
+        store_url (None | str | Unset): The pharmacy's online store. Present ONLY when the store is safe to advertise:
+            its page is enabled, it can take payment, the pharmacy is not on the listing-only plan, and ClinikEHR (not
+            another system) holds its stock. Otherwise null. A pharmacy's own web address, when it has connected one, is
+            used instead of the hosted address.
     """
 
     clinic_id: UUID
@@ -49,6 +53,7 @@ class ListingPharmacy:
     phone: None | str | Unset = UNSET
     hours: ListingPharmacyHoursType0 | None | Unset = UNSET
     open_now: bool | None | Unset = UNSET
+    store_url: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -127,6 +132,12 @@ class ListingPharmacy:
         else:
             open_now = self.open_now
 
+        store_url: None | str | Unset
+        if isinstance(self.store_url, Unset):
+            store_url = UNSET
+        else:
+            store_url = self.store_url
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -156,6 +167,8 @@ class ListingPharmacy:
             field_dict["hours"] = hours
         if open_now is not UNSET:
             field_dict["open_now"] = open_now
+        if store_url is not UNSET:
+            field_dict["store_url"] = store_url
 
         return field_dict
 
@@ -282,6 +295,15 @@ class ListingPharmacy:
 
         open_now = _parse_open_now(d.pop("open_now", UNSET))
 
+        def _parse_store_url(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        store_url = _parse_store_url(d.pop("store_url", UNSET))
+
         listing_pharmacy = cls(
             clinic_id=clinic_id,
             display_name=display_name,
@@ -295,6 +317,7 @@ class ListingPharmacy:
             phone=phone,
             hours=hours,
             open_now=open_now,
+            store_url=store_url,
         )
 
         listing_pharmacy.additional_properties = d

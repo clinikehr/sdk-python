@@ -20,12 +20,14 @@ T = TypeVar("T", bound="ExternalStockBatchRow")
 
 @_attrs_define
 class ExternalStockBatchRow:
-    """
-    Attributes:
-        identifiers (list[Identifier]):
-        quantity (float | None | Unset):
-        band (ExternalStockBatchRowBandType1 | ExternalStockBatchRowBandType2Type1 | ExternalStockBatchRowBandType3Type1
-            | None | Unset):
+    """One product in a stock report. Send at least one identifier and at least one of `quantity` and `band`. A batch with
+    any row that breaks these rules is rejected whole (`rejected_reason: invalid_rows`) and nothing is written.
+
+        Attributes:
+            identifiers (list[Identifier]):
+            quantity (float | None | Unset):
+            band (ExternalStockBatchRowBandType1 | ExternalStockBatchRowBandType2Type1 | ExternalStockBatchRowBandType3Type1
+                | None | Unset):
     """
 
     identifiers: list[Identifier]

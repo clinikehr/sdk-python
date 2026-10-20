@@ -32,7 +32,8 @@ class Submission:
             resource_type (SubmissionResourceType): The kind of record.
             action (SubmissionAction):
             review_status (SubmissionReviewStatus):
-            target_id (None | Unset | UUID): The existing record an update or retract is about.
+            target_id (None | Unset | UUID): The existing record an update or retract is about — for
+                `prescription_pickup_collection` this is the pickup being completed.
             accepted_automatically (bool | Unset): True when the clinic has chosen to accept this kind of item from this key
                 or connection without review; the item is then already on the chart and `review_status` is `confirmed`. False
                 for everything a clinician decides, and while it is pending.
@@ -43,7 +44,10 @@ class Submission:
             result_record_id (None | Unset | UUID): The record this became, once confirmed.
             client_reference (None | str | Unset):
             origin_assistant_name (None | str | Unset):
-            payload (SubmissionPayload | Unset): What was submitted.
+            payload (SubmissionPayload | Unset): What was submitted. For `prescription_pickup_collection` this never carries
+                the signature image — see `has_signature`.
+            has_signature (bool | None | Unset): `prescription_pickup_collection` only: whether a signature was included.
+                The signature image itself is never returned. Null for every other resource_type.
     """
 
     submission_id: UUID
@@ -61,6 +65,7 @@ class Submission:
     client_reference: None | str | Unset = UNSET
     origin_assistant_name: None | str | Unset = UNSET
     payload: SubmissionPayload | Unset = UNSET
+    has_signature: bool | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -134,6 +139,12 @@ class Submission:
         if not isinstance(self.payload, Unset):
             payload = self.payload.to_dict()
 
+        has_signature: bool | None | Unset
+        if isinstance(self.has_signature, Unset):
+            has_signature = UNSET
+        else:
+            has_signature = self.has_signature
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -165,6 +176,8 @@ class Submission:
             field_dict["origin_assistant_name"] = origin_assistant_name
         if payload is not UNSET:
             field_dict["payload"] = payload
+        if has_signature is not UNSET:
+            field_dict["has_signature"] = has_signature
 
         return field_dict
 
@@ -294,6 +307,15 @@ class Submission:
         else:
             payload = SubmissionPayload.from_dict(_payload)
 
+        def _parse_has_signature(data: object) -> bool | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(bool | None | Unset, data)
+
+        has_signature = _parse_has_signature(d.pop("has_signature", UNSET))
+
         submission = cls(
             submission_id=submission_id,
             patient_id=patient_id,
@@ -310,6 +332,7 @@ class Submission:
             client_reference=client_reference,
             origin_assistant_name=origin_assistant_name,
             payload=payload,
+            has_signature=has_signature,
         )
 
         submission.additional_properties = d

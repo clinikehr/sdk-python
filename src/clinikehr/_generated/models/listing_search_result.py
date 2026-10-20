@@ -34,6 +34,11 @@ class ListingSearchResult:
         distance_km (float | None | Unset): Null when the pharmacy has no owner-placed pin, or no `near` was given —
             ranked last, never excluded.
         as_of (datetime.datetime | None | Unset):
+        store_url (None | str | Unset): This product's page in the pharmacy's online store. Present ONLY when the store
+            is safe to advertise (enabled page, able to take payment, not a listing-only plan, ClinikEHR holds the stock),
+            the item is listed and not excluded, and an active, public store product is backed by this exact item. Otherwise
+            null - never a guess, and never a link to the store's front page in place of the product. A pharmacy's own web
+            address, when it has connected one, is used instead of the hosted address.
     """
 
     band: ListingBandType1 | ListingBandType2Type1 | ListingBandType3Type1 | None
@@ -49,6 +54,7 @@ class ListingSearchResult:
     ) = UNSET
     distance_km: float | None | Unset = UNSET
     as_of: datetime.datetime | None | Unset = UNSET
+    store_url: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -110,6 +116,12 @@ class ListingSearchResult:
         else:
             as_of = self.as_of
 
+        store_url: None | str | Unset
+        if isinstance(self.store_url, Unset):
+            store_url = UNSET
+        else:
+            store_url = self.store_url
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -129,6 +141,8 @@ class ListingSearchResult:
             field_dict["distance_km"] = distance_km
         if as_of is not UNSET:
             field_dict["as_of"] = as_of
+        if store_url is not UNSET:
+            field_dict["store_url"] = store_url
 
         return field_dict
 
@@ -284,6 +298,15 @@ class ListingSearchResult:
 
         as_of = _parse_as_of(d.pop("as_of", UNSET))
 
+        def _parse_store_url(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        store_url = _parse_store_url(d.pop("store_url", UNSET))
+
         listing_search_result = cls(
             band=band,
             clinic_id=clinic_id,
@@ -292,6 +315,7 @@ class ListingSearchResult:
             match=match,
             distance_km=distance_km,
             as_of=as_of,
+            store_url=store_url,
         )
 
         listing_search_result.additional_properties = d

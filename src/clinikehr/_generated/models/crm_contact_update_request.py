@@ -238,7 +238,9 @@ class CrmContactUpdateRequest:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.crm_contact_update_request_custom_fields import CrmContactUpdateRequestCustomFields  # noqa: PLC0415
+        from ..models.crm_contact_update_request_custom_fields import (
+            CrmContactUpdateRequestCustomFields,  # noqa: PLC0415
+        )
 
         d = dict(src_dict)
         _record_type = d.pop("record_type", UNSET)
