@@ -1,6 +1,6 @@
 [project]
 name = "clinikehr"
-version = "0.2.0"
+version = "0.3.0"
 description = "Official Python client for the ClinikEHR API (api.clinikehr.com)."
 readme = "README.md"
 requires-python = ">=3.11"
