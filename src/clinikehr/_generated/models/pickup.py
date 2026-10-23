@@ -42,7 +42,9 @@ class Pickup:
             agent_relationship (None | str | Unset):
             counselling (None | PickupCounsellingType1 | PickupCounsellingType2Type1 | PickupCounsellingType3Type1 | Unset):
             answers (list[PickupAnswer] | Unset):
-            has_signature (bool | Unset):
+            has_signature (bool | Unset): Whether a signature image is on file. A collected pickup can be unsigned (`false`)
+                when the clinic has switched off its Require a signature setting and the handover was sent without one; the
+                image itself is never returned either way.
             privacy_acknowledged_version (int | None | Unset):
             lines (list[PickupLine] | Unset):
             outreach_event_id (None | Unset | UUID):

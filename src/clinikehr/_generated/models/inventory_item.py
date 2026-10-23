@@ -25,6 +25,8 @@ class InventoryItem:
         id (UUID):
         name (str):
         is_active (bool): False while the item is archived.
+        is_controlled (bool): True when the clinic has marked this item as a controlled medicine. Changed only in the
+            ClinikEHR app by staff with the Mark medicines as controlled permission.
         identifiers (list[Identifier]):
         generic_name (None | str | Unset):
         brand_name (None | str | Unset):
@@ -41,6 +43,7 @@ class InventoryItem:
     id: UUID
     name: str
     is_active: bool
+    is_controlled: bool
     identifiers: list[Identifier]
     generic_name: None | str | Unset = UNSET
     brand_name: None | str | Unset = UNSET
@@ -62,6 +65,8 @@ class InventoryItem:
         name = self.name
 
         is_active = self.is_active
+
+        is_controlled = self.is_controlled
 
         identifiers = []
         for identifiers_item_data in self.identifiers:
@@ -141,6 +146,7 @@ class InventoryItem:
                 "id": id,
                 "name": name,
                 "is_active": is_active,
+                "is_controlled": is_controlled,
                 "identifiers": identifiers,
             }
         )
@@ -178,6 +184,8 @@ class InventoryItem:
         name = d.pop("name")
 
         is_active = d.pop("is_active")
+
+        is_controlled = d.pop("is_controlled")
 
         identifiers = []
         _identifiers = d.pop("identifiers")
@@ -304,6 +312,7 @@ class InventoryItem:
             id=id,
             name=name,
             is_active=is_active,
+            is_controlled=is_controlled,
             identifiers=identifiers,
             generic_name=generic_name,
             brand_name=brand_name,

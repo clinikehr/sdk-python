@@ -115,8 +115,13 @@ def sync_detailed(
         pickup_id (UUID):
         idempotency_key (str):
         body (PickupCollectionCreate): A collection, submitted for clinician review — it never
-            writes the pickup directly. `signature_data` is required: the clinic's single write path
-            cannot mark a pickup collected without one. Send the image your own kiosk captured.
+            writes the pickup directly. `signature_data` follows the clinic's own **Require a
+            signature at pickup** setting, which the server reads: when the clinic requires a
+            signature, a request without one is refused with `400 signature_required`; when the clinic
+            has switched it off, `signature_data` may be omitted and the pickup is recorded unsigned
+            (`has_signature: false`). A signature you do send is always checked (PNG data URL, under
+            64 KB). To hand over only some lines, list their `line_id` values in `line_ids`; the lines
+            left behind stay on a new awaiting pickup.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -161,8 +166,13 @@ def sync(
         pickup_id (UUID):
         idempotency_key (str):
         body (PickupCollectionCreate): A collection, submitted for clinician review — it never
-            writes the pickup directly. `signature_data` is required: the clinic's single write path
-            cannot mark a pickup collected without one. Send the image your own kiosk captured.
+            writes the pickup directly. `signature_data` follows the clinic's own **Require a
+            signature at pickup** setting, which the server reads: when the clinic requires a
+            signature, a request without one is refused with `400 signature_required`; when the clinic
+            has switched it off, `signature_data` may be omitted and the pickup is recorded unsigned
+            (`has_signature: false`). A signature you do send is always checked (PNG data URL, under
+            64 KB). To hand over only some lines, list their `line_id` values in `line_ids`; the lines
+            left behind stay on a new awaiting pickup.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -202,8 +212,13 @@ async def asyncio_detailed(
         pickup_id (UUID):
         idempotency_key (str):
         body (PickupCollectionCreate): A collection, submitted for clinician review — it never
-            writes the pickup directly. `signature_data` is required: the clinic's single write path
-            cannot mark a pickup collected without one. Send the image your own kiosk captured.
+            writes the pickup directly. `signature_data` follows the clinic's own **Require a
+            signature at pickup** setting, which the server reads: when the clinic requires a
+            signature, a request without one is refused with `400 signature_required`; when the clinic
+            has switched it off, `signature_data` may be omitted and the pickup is recorded unsigned
+            (`has_signature: false`). A signature you do send is always checked (PNG data URL, under
+            64 KB). To hand over only some lines, list their `line_id` values in `line_ids`; the lines
+            left behind stay on a new awaiting pickup.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -246,8 +261,13 @@ async def asyncio(
         pickup_id (UUID):
         idempotency_key (str):
         body (PickupCollectionCreate): A collection, submitted for clinician review — it never
-            writes the pickup directly. `signature_data` is required: the clinic's single write path
-            cannot mark a pickup collected without one. Send the image your own kiosk captured.
+            writes the pickup directly. `signature_data` follows the clinic's own **Require a
+            signature at pickup** setting, which the server reads: when the clinic requires a
+            signature, a request without one is refused with `400 signature_required`; when the clinic
+            has switched it off, `signature_data` may be omitted and the pickup is recorded unsigned
+            (`has_signature: false`). A signature you do send is always checked (PNG data URL, under
+            64 KB). To hand over only some lines, list their `line_id` values in `line_ids`; the lines
+            left behind stay on a new awaiting pickup.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
