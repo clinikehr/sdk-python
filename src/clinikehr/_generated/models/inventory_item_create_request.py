@@ -24,7 +24,10 @@ class InventoryItemCreateRequest:
         dosage_form (str | Unset):
         category (str | Unset):
         unit_of_measure (str | Unset):
-        upc (str | Unset): gtin identifier.
+        upc (str | Unset): A `gtin` value must be a valid GTIN-8, GTIN-12, GTIN-13 or GTIN-14: digits only, the right
+            length and a correct GS1 check digit. A request that sends any other value is refused with 400 `invalid_gtin`,
+            naming the field and the value. Values already stored are not changed and are returned as they are. A blank
+            value is treated as no code.
         nafdac_no (str | Unset):
         ndc (str | Unset):
         default_sale_price (float | Unset):

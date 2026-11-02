@@ -20,7 +20,8 @@ class PartnerCodeUploadResult:
     Attributes:
         code (str):
         state (None | PartnerCodeUploadResultStateType1 | PartnerCodeUploadResultStateType2Type1 |
-            PartnerCodeUploadResultStateType3Type1):
+            PartnerCodeUploadResultStateType3Type1): `error` means the row itself was refused and nothing was saved for it
+            (an unknown field, a missing code, or a barcode that is not a valid GTIN).
         reason (None | str | Unset):
     """
 

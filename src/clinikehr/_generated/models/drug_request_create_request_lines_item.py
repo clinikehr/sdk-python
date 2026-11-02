@@ -18,7 +18,10 @@ class DrugRequestCreateRequestLinesItem:
     Attributes:
         quantity (float):
         code_system (DrugRequestCreateRequestLinesItemCodeSystem | Unset):
-        code_value (str | Unset):
+        code_value (str | Unset): When code_system is gtin, this must be a valid GTIN-8, GTIN-12, GTIN-13 or GTIN-14:
+            digits only, the right length and a correct GS1 check digit. A request that sends any other value is refused
+            with 400 `invalid_gtin`, naming the field and the value. Values already stored are not changed and are returned
+            as they are.
         description (str | Unset):
         directions (str | Unset):
     """

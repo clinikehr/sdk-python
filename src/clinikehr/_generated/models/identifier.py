@@ -16,7 +16,9 @@ class Identifier:
     """
     Attributes:
         system (IdentifierSystem):
-        value (str):
+        value (str): A `gtin` value must be a valid GTIN-8, GTIN-12, GTIN-13 or GTIN-14: digits only, the right length
+            and a correct GS1 check digit. A request that sends any other value is refused with 400 `invalid_gtin`, naming
+            the field and the value. Values already stored are not changed and are returned as they are.
     """
 
     system: IdentifierSystem

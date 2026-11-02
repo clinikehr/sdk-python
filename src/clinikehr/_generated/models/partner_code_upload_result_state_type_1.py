@@ -2,6 +2,7 @@ from enum import StrEnum
 
 
 class PartnerCodeUploadResultStateType1(StrEnum):
+    ERROR = "error"
     LINKED = "linked"
     NEEDS_REVIEW = "needs_review"
     REJECTED = "rejected"

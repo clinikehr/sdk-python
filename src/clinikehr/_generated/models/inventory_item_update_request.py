@@ -23,7 +23,12 @@ class InventoryItemUpdateRequest:
         dosage_form (None | str | Unset):
         category (None | str | Unset):
         unit_of_measure (None | str | Unset):
-        upc (None | str | Unset):
+        upc (None | str | Unset): A `gtin` value must be a valid GTIN-8, GTIN-12, GTIN-13 or GTIN-14: digits only, the
+            right length and a correct GS1 check digit. A request that sends any other value is refused with 400
+            `invalid_gtin`, naming the field and the value. Values already stored are not changed and are returned as they
+            are. On update, a value equal to the one already stored is accepted even if it is not a valid GTIN; only a
+            changed value is checked (the comparison reads the item with your key, which counts toward your rate limit; if
+            that read is refused you get that refusal, not invalid_gtin). null clears the code.
         nafdac_no (None | str | Unset):
         ndc (None | str | Unset):
         default_sale_price (float | Unset): Above the clinic's configured percentage threshold is refused

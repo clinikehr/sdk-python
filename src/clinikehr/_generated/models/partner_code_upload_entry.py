@@ -16,7 +16,10 @@ class PartnerCodeUploadEntry:
     """
     Attributes:
         code (str):
-        barcode (str | Unset):
+        barcode (str | Unset): A GTIN. A `gtin` value must be a valid GTIN-8, GTIN-12, GTIN-13 or GTIN-14: digits only,
+            the right length and a correct GS1 check digit. A row with any other value is refused on its own (state `error`,
+            reason starting `invalid_gtin`) and the other rows are still processed. Values already stored are not changed
+            and are returned as they are.
         nafdac_no (str | Unset):
         ndc (str | Unset):
         rxcui (str | Unset):

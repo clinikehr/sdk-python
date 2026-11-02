@@ -100,7 +100,12 @@ def sync_detailed(
 ) -> Response[Problem | UpdateInventoryItemResponse200]:
     """Update a catalogue item.
 
-     Absent field ≠ JSON null. Idempotency-Key OPTIONAL — a PATCH is naturally idempotent.
+     Absent field ≠ JSON null. Idempotency-Key OPTIONAL — a PATCH is naturally idempotent. Barcode
+    (`upc`): only a changed value must be a valid GTIN. A `upc` equal, as stored, to the item's current
+    value is accepted even when it is not a valid GTIN, so an item read from the API can be written
+    back. A new or different `upc` that is not a valid GTIN is refused with 400 `invalid_gtin` and
+    nothing is written. To make that comparison the API reads the item's current value with the caller's
+    own key, so a key without `inventory.items:read` cannot send an unchanged invalid value.
 
     Args:
         clinic_id (UUID):
@@ -141,7 +146,12 @@ def sync(
 ) -> Problem | UpdateInventoryItemResponse200 | None:
     """Update a catalogue item.
 
-     Absent field ≠ JSON null. Idempotency-Key OPTIONAL — a PATCH is naturally idempotent.
+     Absent field ≠ JSON null. Idempotency-Key OPTIONAL — a PATCH is naturally idempotent. Barcode
+    (`upc`): only a changed value must be a valid GTIN. A `upc` equal, as stored, to the item's current
+    value is accepted even when it is not a valid GTIN, so an item read from the API can be written
+    back. A new or different `upc` that is not a valid GTIN is refused with 400 `invalid_gtin` and
+    nothing is written. To make that comparison the API reads the item's current value with the caller's
+    own key, so a key without `inventory.items:read` cannot send an unchanged invalid value.
 
     Args:
         clinic_id (UUID):
@@ -177,7 +187,12 @@ async def asyncio_detailed(
 ) -> Response[Problem | UpdateInventoryItemResponse200]:
     """Update a catalogue item.
 
-     Absent field ≠ JSON null. Idempotency-Key OPTIONAL — a PATCH is naturally idempotent.
+     Absent field ≠ JSON null. Idempotency-Key OPTIONAL — a PATCH is naturally idempotent. Barcode
+    (`upc`): only a changed value must be a valid GTIN. A `upc` equal, as stored, to the item's current
+    value is accepted even when it is not a valid GTIN, so an item read from the API can be written
+    back. A new or different `upc` that is not a valid GTIN is refused with 400 `invalid_gtin` and
+    nothing is written. To make that comparison the API reads the item's current value with the caller's
+    own key, so a key without `inventory.items:read` cannot send an unchanged invalid value.
 
     Args:
         clinic_id (UUID):
@@ -216,7 +231,12 @@ async def asyncio(
 ) -> Problem | UpdateInventoryItemResponse200 | None:
     """Update a catalogue item.
 
-     Absent field ≠ JSON null. Idempotency-Key OPTIONAL — a PATCH is naturally idempotent.
+     Absent field ≠ JSON null. Idempotency-Key OPTIONAL — a PATCH is naturally idempotent. Barcode
+    (`upc`): only a changed value must be a valid GTIN. A `upc` equal, as stored, to the item's current
+    value is accepted even when it is not a valid GTIN, so an item read from the API can be written
+    back. A new or different `upc` that is not a valid GTIN is refused with 400 `invalid_gtin` and
+    nothing is written. To make that comparison the API reads the item's current value with the caller's
+    own key, so a key without `inventory.items:read` cannot send an unchanged invalid value.
 
     Args:
         clinic_id (UUID):
